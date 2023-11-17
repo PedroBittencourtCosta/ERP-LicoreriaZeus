@@ -8,6 +8,7 @@ public record ProductDTO(
         @NotBlank String name,
         @NotNull @PositiveOrZero Integer amount,
         @NotBlank String typeProduct,
+        @NotBlank String subTypeProduct,
         @NotNull @DecimalMin (value = "0.01") BigDecimal salePrice,
         @NotNull @DecimalMin (value = "0.01") BigDecimal purchasePrice,
         @NotBlank String imageUrl,
