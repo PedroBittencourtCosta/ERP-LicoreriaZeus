@@ -25,4 +25,14 @@ public class Product {
     private String imageUrl;
     private Integer netWeight;
 
+    public Product(ProductDTO data) {
+        this.name = data.name();
+        this.amount = data.amount();
+        this.typeProduct = data.typeProduct();
+        this.subTypeProduct = data.subTypeProduct();
+        this.salePrice = data.salePrice();
+        this.purchasePrice = data.purchasePrice();
+        this.imageUrl = data.imageUrl();
+        this.netWeight = data.netWeight();
+    }
 }
