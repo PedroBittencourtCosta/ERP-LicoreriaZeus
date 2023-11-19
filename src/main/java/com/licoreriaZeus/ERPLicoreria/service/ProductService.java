@@ -20,10 +20,6 @@ public class ProductService {
 
     public ProductDTO createProduct(ProductDTO data){
 
-        Optional<Product> byName = repository.findByName(data.getName());
-
-        if(byName.isPresent()) throw new ProductAlreadyExistsException("Product already registered");
-
         repository.save(new Product(data));
         return data;
     }
