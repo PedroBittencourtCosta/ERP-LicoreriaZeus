@@ -3,6 +3,7 @@ package com.licoreriaZeus.ERPLicoreria.service;
 import com.licoreriaZeus.ERPLicoreria.model.Product;
 import com.licoreriaZeus.ERPLicoreria.model.ProductDTO;
 import com.licoreriaZeus.ERPLicoreria.model.exception.ProductAlreadyExistsException;
+import com.licoreriaZeus.ERPLicoreria.model.exception.ProductNotExistsException;
 import com.licoreriaZeus.ERPLicoreria.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,14 @@ public class ProductService {
 
         return allProducts.stream().map(ProductDTO::new).toList();
 
+    }
+
+    public ProductDTO getProduct(String name){
+
+        Optional<Product> byName = repository.findByName(name);
+
+        if(byName.isEmpty()) throw new ProductNotExistsException("Product not exists");
+
+        return new ProductDTO(byName.get());
     }
 }
