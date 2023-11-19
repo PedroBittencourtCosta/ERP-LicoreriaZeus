@@ -21,18 +21,16 @@ public class Product {
     private String typeProduct;
     private String subTypeProduct;
     private BigDecimal salePrice;
-    private BigDecimal purchasePrice;
     private String imageUrl;
     private Integer netWeight;
 
     public Product(ProductDTO data) {
-        this.name = data.name();
-        this.amount = data.amount();
-        this.typeProduct = data.typeProduct();
-        this.subTypeProduct = data.subTypeProduct();
-        this.salePrice = data.salePrice();
-        this.purchasePrice = data.purchasePrice();
-        this.imageUrl = data.imageUrl();
-        this.netWeight = data.netWeight();
+        this.name = data.getName();
+        this.amount = data.getAmount();
+        this.typeProduct = data.getTypeProduct();
+        this.subTypeProduct = data.getSubTypeProduct();
+        this.salePrice = data.getSalePrice();
+        this.imageUrl = data.getImageUrl();
+        this.netWeight = data.getNetWeight();
     }
 }
