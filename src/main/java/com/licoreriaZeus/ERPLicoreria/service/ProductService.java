@@ -7,7 +7,9 @@ import com.licoreriaZeus.ERPLicoreria.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+
 
 @Service
 public class ProductService {
@@ -18,11 +20,19 @@ public class ProductService {
 
     public ProductDTO createProduct(ProductDTO data){
 
-        Optional<Product> byName = repository.findByName(data.name());
+        Optional<Product> byName = repository.findByName(data.getName());
 
         if(byName.isPresent()) throw new ProductAlreadyExistsException("Product already registered");
 
         repository.save(new Product(data));
         return data;
+    }
+
+    public List<ProductDTO> getAllProducts(){
+
+        List<Product> allProducts = repository.findAll();
+
+        return allProducts.stream().map(ProductDTO::new).toList();
+
     }
 }
