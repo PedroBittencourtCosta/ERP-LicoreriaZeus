@@ -5,6 +5,7 @@ import com.licoreriaZeus.ERPLicoreria.model.ProductDTO;
 import com.licoreriaZeus.ERPLicoreria.model.exception.ProductAlreadyExistsException;
 import com.licoreriaZeus.ERPLicoreria.model.exception.ProductNotExistsException;
 import com.licoreriaZeus.ERPLicoreria.repository.ProductRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,11 @@ public class ProductService {
 
     public ProductDTO createProduct(ProductDTO data){
 
-        repository.save(new Product(data));
-        return data;
+       if(repository.findByName(data.getName()).isPresent())
+           throw new ProductAlreadyExistsException("Product already exists");
+
+       repository.save(new Product(data));
+       return data;
     }
 
     public List<ProductDTO> getAllProducts(){
@@ -40,5 +44,19 @@ public class ProductService {
         if(byName.isEmpty()) throw new ProductNotExistsException("Product not exists");
 
         return new ProductDTO(byName.get());
+    }
+
+    public ProductDTO alterProduct(String name, ProductDTO data){
+
+        Optional<Product> byName = repository.findByName(name);
+
+        if(byName.isEmpty()) throw new ProductNotExistsException("Product not exists");
+
+        BeanUtils.copyProperties(data, byName.get());
+
+        Product product = repository.save(byName.get());
+
+        return new ProductDTO(product);
+
     }
 }
