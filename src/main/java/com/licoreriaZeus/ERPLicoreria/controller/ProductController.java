@@ -45,4 +45,11 @@ public class ProductController {
 
         return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(productDTO);
     }
+
+    @DeleteMapping("/{name}")
+    public ResponseEntity deleteProduct(@PathVariable String name){
+
+        service.deleteProduct(name);
+        return ResponseEntity.status(HttpStatusCode.valueOf(204)).build();
+    }
 }
