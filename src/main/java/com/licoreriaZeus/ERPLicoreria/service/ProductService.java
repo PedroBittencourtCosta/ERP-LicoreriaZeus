@@ -12,10 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
 public class ProductService {
-
 
     @Autowired
     private ProductRepository repository;
@@ -57,6 +55,16 @@ public class ProductService {
         Product product = repository.save(byName.get());
 
         return new ProductDTO(product);
+
+    }
+
+    public void  deleteProduct(String name){
+
+        Optional<Product> product = repository.findByName(name);
+
+        if(product.isEmpty()) throw new ProductNotExistsException("Product not exists");
+
+        repository.delete(product.get());
 
     }
 }
