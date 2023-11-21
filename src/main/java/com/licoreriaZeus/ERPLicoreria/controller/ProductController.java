@@ -29,4 +29,20 @@ public class ProductController {
     public ResponseEntity<List<ProductDTO>> getAllProducts(){
         return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(service.getAllProducts());
     }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<ProductDTO> getProduct(@PathVariable String name){
+
+        ProductDTO productDTO = service.getProduct(name);
+
+        return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(productDTO);
+    }
+
+    @PutMapping("/{name}")
+    public ResponseEntity<ProductDTO> putProduct(@PathVariable String name, @RequestBody @Valid ProductDTO data){
+
+        ProductDTO productDTO = service.alterProduct(name, data);
+
+        return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(productDTO);
+    }
 }
