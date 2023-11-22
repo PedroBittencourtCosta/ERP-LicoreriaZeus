@@ -31,11 +31,21 @@ public class ProductController {
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<ProductDTO> getProduct(@PathVariable String name){
+    public ResponseEntity<ProductDTO> getProduct(@PathVariable(value = "name") String name){
 
         ProductDTO productDTO = service.getProduct(name);
 
         return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(productDTO);
+    }
+
+    @GetMapping("/subType/{subTypeProduct}")
+    public ResponseEntity<List<ProductDTO>> getAllBySubType(@PathVariable(value = "subTypeProduct") String subTypeProduct){
+
+        List<ProductDTO> allBySubType = service.getAllBySubType(subTypeProduct);
+
+        allBySubType.forEach(System.out::println);
+
+        return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(allBySubType);
     }
 
     @PutMapping("/{name}")
